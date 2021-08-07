@@ -9,8 +9,14 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.6",
+        "ipinfo/ipinfo": "^2.2",
         "laravel/framework": "^8.40",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "leocavalcante/siler": "^1.7",
+        "rebing/graphql-laravel": "^7.2",
+        "sopamo/laravel-filepond": "^0.6.2",
+        "webonyx/graphql-php": "^14.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

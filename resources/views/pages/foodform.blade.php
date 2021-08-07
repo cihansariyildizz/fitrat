@@ -1,4 +1,3 @@
-@extends('layouts.head')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    @include('layouts.head')
 </head>
 <body>
     @include('includes.header')
@@ -14,15 +14,18 @@
             <div class="col-md-6">
                 <h4>Veri Form</h4>
                 <hr>
-                <form action="{{ route('auth.create_food') }}" method="post">
+                <form action="{{ route('auth.create_food') }}" method="post" enctype="multipart/form-data">
                     @csrf
-
                     <div class="results">
                         @if(Session::get('fail'))
                         <div class="alert alert-danger">
                             {{Session::get('fail')}}
                         </div>
                         @endif
+                    </div>
+                    <div class="form-group mb-3 mt-2">
+                        <label for="fileUpload">Images*</label>
+                        <input type="file" name="fileUpload" accept="image/*" required>
                     </div>
                     <div class="form-group">
                         <label for="category">Category</label>
@@ -79,6 +82,10 @@
     </div>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+
 </html>
 
 

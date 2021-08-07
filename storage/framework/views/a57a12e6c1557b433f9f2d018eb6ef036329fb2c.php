@@ -1,4 +1,3 @@
-@extends('layouts.head')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,33 +12,35 @@
             <div class="col-md-6">
                 <h4>Profile</h4>
                 <div class="row">
-                    {{ $LoggedUserInfo->name }}
+                    <?php echo e($LoggedUserInfo->name); ?>
+
                 </div>
                 <div class="row">
-                    {{ $LoggedUserInfo->email }}
+                    <?php echo e($LoggedUserInfo->email); ?>
+
                 </div>
                 <div class="row">
-                    {{ $VerilerInfo->target_calorie }}
+                    <?php echo e($VerilerInfo->target_calorie); ?>
+
                 </div>
 
                 <?php $whichday = App\Helpers\whichday::whichday(); ?>
 
                 <div class="results">
-                    @if(Session::get('success'))
+                    <?php if(Session::get('success')): ?>
                     <div class="alert alert-success">
-                        {{Session::get('success')}}
-                    </div>
-                    @endif
-                    @if(Session::get('fail'))
-                    <div class="alert alert-danger">
-                        {{Session::get('fail')}}
-                    </div>
-                    @endif
-                </div>
+                        <?php echo e(Session::get('success')); ?>
 
-                {{-- <div class="row">
-                    <button class="btn  btn-dark" type="button"  onclick="window.location.href='foodform'">Next</button>
-                </div> --}}
+                    </div>
+                    <?php endif; ?>
+                    <?php if(Session::get('fail')): ?>
+                    <div class="alert alert-danger">
+                        <?php echo e(Session::get('fail')); ?>
+
+                    </div>
+                    <?php endif; ?>
+                </div>
+                
                 <a href="logout">Logout</a>
             </div>
         </div>
@@ -48,3 +49,5 @@
 </html>
 
 
+
+<?php echo $__env->make('layouts.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\cihan\Desktop\fitrat\fitrat\resources\views/admin/profile.blade.php ENDPATH**/ ?>

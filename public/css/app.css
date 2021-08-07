@@ -1,23 +1,52 @@
 /*css*/
 
-h5{
-    font-size: 18px!important;
-}
-@media(max-width:800px){
-    h5{
-        font-size: 14px!important;
-    }
+a{
+    text-decoration: none;
+
+}a:hover {
+    color: black;
 }
 
-h6{
+h5{
     font-size: 16px!important;
 }
 @media(max-width:800px){
-    h6{
+    h5{
         font-size: 12px!important;
     }
 }
 
+.calories{
+    font-size: 14px!important;
+    color:black
+}
+@media(max-width:800px){
+    .calories{
+        font-size: 12px!important;
+    }
+}
 
+.thumbnail-images{
+    max-width: 120px;
+}
+@media(max-width:800px){
+.row.mobile{
+    padding: 20px;
+}}
 
+.thumbnail-images {
+    max-width: 180px;
+    margin: auto;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.card{
+    border: none
+}
+.card.small{
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+
+}
 

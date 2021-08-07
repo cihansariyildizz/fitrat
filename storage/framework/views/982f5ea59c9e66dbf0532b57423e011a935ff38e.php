@@ -1,4 +1,3 @@
-@extends('layouts.head')
 <body>
     <div class="container">
         <div class="row justify-content-center" >
@@ -20,18 +19,18 @@
                             <div class="col"  style="align-self: center;">
                                 <div class="row">
                                     <div class="col-md-12" >
-                                        <h4 class="mt-2" style="text-align: center; text-decoration:underline">Day {{$i+1}}</h4>
-                                        <h5>Breakfast: {{($day_array[$i][0])->name}} <a class="calories">({{$day_array[$i][0]->calorie}}Cal)</a></h5>
+                                        <h4 class="mt-2" style="text-align: center; text-decoration:underline">Day <?php echo e($i+1); ?></h4>
+                                        <h5>Breakfast: <?php echo e(($day_array[$i][0])->name); ?> <a class="calories">(<?php echo e($day_array[$i][0]->calorie); ?>Cal)</a></h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5>Lunch: {{($day_array[$i][1])->name}} <a class="calories">({{$day_array[$i][1]->calorie}}Cal)</a></h5>
+                                        <h5>Lunch: <?php echo e(($day_array[$i][1])->name); ?> <a class="calories">(<?php echo e($day_array[$i][1]->calorie); ?>Cal)</a></h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5>Dinner: {{$day_array[$i][2]->name}} <a class="calories">({{$day_array[$i][2]->calorie}}Cal)</a></h5>
+                                        <h5>Dinner: <?php echo e($day_array[$i][2]->name); ?> <a class="calories">(<?php echo e($day_array[$i][2]->calorie); ?>Cal)</a></h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center mt-2">
@@ -47,8 +46,8 @@
 
 
                 <div>
-                    <form action="{{ route('create_foodplan') }}"  method="post">
-                        @csrf
+                    <form action="<?php echo e(route('create_foodplan')); ?>"  method="post">
+                        <?php echo csrf_field(); ?>
                         <input type="submit" name="create_foodplan" class="btn btn-block btn-primary" type="button" />
                     </form>
                 </div>
@@ -61,3 +60,5 @@
 
 
 
+
+<?php echo $__env->make('layouts.head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\cihan\Desktop\fitrat\fitrat\resources\views/welcome.blade.php ENDPATH**/ ?>

@@ -8,7 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    @include('includes.header')
     <div class="container">
         <div class="row" style="margin-top: 45px">
             <div class="col-md-6">

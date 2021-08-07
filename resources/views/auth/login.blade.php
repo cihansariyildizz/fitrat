@@ -8,7 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    @include('includes.header')
     <div class="container">
         <div class="row" style="margin-top: 45px">
             <div class="col-md-6">
@@ -40,6 +39,11 @@
                     <div class="form-group">
                         <button class="btn btn-block btn-primary" type="submit">Login</button>
                     </div>
+                    <div class="modal" id="myModal" tabindex="-1">
+                        @if (session()->has('NotLoggedUser'))
+                        <div class="alert alert-info">Your are not logged in</div>
+                     @endif
+                    </div>
                     <br>
                     <a href="register"> Create an new Account now</a>
                 </form>
@@ -50,6 +54,8 @@
     </div>
 
 </body>
+
+
 </html>
 
 

@@ -15,7 +15,6 @@ class VerilerFormController extends Controller
     }
 
     function create(Request $request){
-        $regex = "/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/";
         $request->validate([
             'height' => 'required|numeric|max:220|min:60',
             'current_weight'  => 'required|numeric|max:160|min:30',
@@ -91,7 +90,7 @@ class VerilerFormController extends Controller
             'age'=> $request->age,
             'activity_level'=> $request->activity_level,
             'goal_weight'=> $request->goal_weight,
-            'target_calorie'=> $target_calorie ,
+            'target_calorie'=> $target_calorie,
             'target_day'=> $request->target_day,
             "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
             "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
@@ -99,7 +98,7 @@ class VerilerFormController extends Controller
 
 
         if($query){
-            return redirect('profile');
+            return redirect('welcoming');
         }else{
             return back()->with('fail','Something Went Wrong');
         }

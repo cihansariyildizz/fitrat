@@ -22,33 +22,31 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['AlreadyLoggedIn']], function () {
-
     Route::get('login', [UserAuthController::class, 'login']);
     Route::get('register', [UserAuthController::class, 'register']);
-
+    Route::get('planner', [SevenDayPlanController::class, 'showPlan']);
+    Route::get('foodform', [FoodFormController::class, 'foodform']);
+    Route::get('veriform', [VerilerFormController::class, 'veriform']);
+    Route::get('welcoming', [UserAuthController::class, 'nextpage']);
 });
 
 
 
 
-
-
-
-
-Route::get('veriform', [VerilerFormController::class, 'veriform']);
-Route::get('foodform', [FoodFormController::class, 'foodform']);
-
-Route::post('/create', [UserAuthController::class, 'create'])->name('auth.create');
-Route::post('/createfood', [FoodFormController::class, 'create'])->name('auth.create_food');
-Route::post('/check', [UserAuthController::class, 'check'])->name('auth.check');
-Route::get('logout', [UserAuthController::class, 'logout']);
-Route::post('/createveri', [VerilerFormController::class, 'create'])->name('auth.create_veri');
-
-
-Route::post('createPlan', [SevenDayPlanController::class, 'planner'])->name('create_foodplan');
-
-
 Route::get('profile', [UserAuthController::class, 'profile']);
-Route::get('planner', [SevenDayPlanController::class, 'showPlan']);
+
+
+
+Route::post('create', [UserAuthController::class, 'create'])->name('auth.create');
+Route::post('createfood', [FoodFormController::class, 'create'])->name('auth.create_food');
+Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
+
+Route::post('createveri', [VerilerFormController::class, 'create'])->name('auth.create_veri');
+
+Route::post('createPlan', [SevenDayPlanController::class, 'generateMealPlan7days'])->name('create_foodplan');
+Route::get('logout', [UserAuthController::class, 'logout']);
+
+
+
 
 

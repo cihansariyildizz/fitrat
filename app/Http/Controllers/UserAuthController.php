@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
+
 class UserAuthController extends Controller
 {
     function login() {
-
         return view('auth.login');
     }
     function register() {
@@ -27,13 +27,26 @@ class UserAuthController extends Controller
             'password' => 'required|min:6|max:15'
         ]);
 
-        //if validation succesfull
+        // $base_api = 'b1a2074e56b54ccf99262f978245803f';
+        // $requestContent = [
+        //     'headers' => [
+        //         'content-Type' => 'application/json',
+        //     ],
+        //     'json' => [
+        //         'name' => request()->name,
+        //     ]
+        // ];
 
-        // $user = new User;
-        // $user->name = $request -> name;
-        // $user->email = $request -> email;
-        // $user->password = Hash::make($request -> password);
-        // $query = $user->save();
+        // try {
+        //     $client = new GuzzleHttpClient();
+        //     $apiRequest = $client->request('POST', 'https://api.spoonacular.com/users/connect?apiKey='.$base_api, $requestContent);
+        //     $response = json_decode($apiRequest->getBody());
+        //     $username_ = $response->username;
+        //     $hashname_ = $response->hash;
+
+        // } catch (\GuzzleHttp\Exception\RequestException $e) {
+        //     echo ($e);
+        // }
 
 
         //USE QUERYBUILDER
@@ -42,19 +55,18 @@ class UserAuthController extends Controller
             'name'=> $request->name,
             'email'=> $request->email,
             'password'=>Hash::make( $request->password),
+            // 'apiName'=>$username_,
+            // 'apiHash'=>$hashname_,
             "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
             "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
 
         ]);
-
         if($query){
             return back()->with('success','You have been succesfully registered');
         }else{
             return back()->with('fail','Something Went Wrong');
         }
     }
-
-
 
     function check(Request $request){
         $request->validate([
@@ -82,14 +94,11 @@ class UserAuthController extends Controller
             }
         }else{
             return back()->with('fail','No account found for this email');
-
         }
 
     }
 
-
-
-    function profile(){
+    function nextpage(){
         if(session()-> has('LoggedUser')){
             $user1 = User::where('id', '=', session('LoggedUser')) -> first();
             $user2 = Veriler::where('name', '=', session('LoggedUserName')) -> first();
@@ -97,10 +106,11 @@ class UserAuthController extends Controller
                 'LoggedUserInfo' => $user1,
                 'VerilerInfo' => $user2
             ];
+            return view('pages.intermediatepage', $data);
+         }else{
+            return redirect('login');
          }
-         return view('admin.profile', $data);
     }
-
 
 
     function logout(){
@@ -108,7 +118,6 @@ class UserAuthController extends Controller
             session() -> pull('LoggedUser');
             return redirect('login');
         }
-
     }
 }
 
