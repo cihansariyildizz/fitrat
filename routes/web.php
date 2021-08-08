@@ -33,7 +33,7 @@ Route::group(['middleware' => ['AlreadyLoggedIn']], function () {
 
 
 
-Route::get('profile', [UserAuthController::class, 'profile']);
+Route::get('profile', [SevenDayPlanController::class, 'show']);
 
 
 

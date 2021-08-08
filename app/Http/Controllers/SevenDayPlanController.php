@@ -132,19 +132,91 @@ class SevenDayPlanController extends Controller
 
 
     function show(){
-        if(session()-> has('LoggedUser')){
-            $user1 = User::where('id', '=', session('LoggedUser')) -> first();
-            $user2 = Veriler::where('name', '=', session('LoggedUserName')) -> first();
-            $user2 = SevenDayPlan::where('name', '=', session('LoggedUserName')) -> first();
-            $data = [
-                'LoggedUserInfo' => $user1,
-                'VerilerInfo' => $user2
-            ];
-            return view('admin.profile', $data);
-         }
-         else{
-            return redirect('login');
-         }
+        // if(session()-> has('LoggedUser')){
+        //     $user1 = User::where('id', '=', session('LoggedUser')) -> first();
+        //     $user2 = Veriler::where('name', '=', session('LoggedUserName')) -> first();
+        //     $fooData = SevenDayPlan::where('name', '=', session('LoggedUserName')) -> first();
+        //     $data = [
+        //         'LoggedUserInfo' => $user1,
+        //         'VerilerInfo' => $user2,
+        //     ];
+        //     return view('admin.profile', $data);
+        //  }
+        //  else{
+        //     return redirect('login');
+        //  }
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts1=   $breakfasts->day1;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch1=  $lunch->day1;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner1=  $dinner->day1;
+        $day1 = [$breakfasts1, $lunch1, $dinner1];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts2= $breakfasts->day2;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch2= $lunch->day2;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner2= $dinner->day2;
+        $day2 = [$breakfasts2, $lunch2, $dinner2];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts3=  $breakfasts->day3;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch3=  $lunch->day3;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner3= $dinner->day3;
+        $day3 = [$breakfasts3, $lunch3, $dinner3];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts4= $breakfasts->day4;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch4=  $lunch->day4;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner4=  $dinner->day4;
+        $day4 = [$breakfasts4, $lunch4, $dinner4];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts5=  $breakfasts->day5;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch5=  $lunch->day5;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner5= $dinner->day5;
+        $day5 = [$breakfasts5, $lunch5, $dinner5];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts6= $breakfasts->day6 ;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch6=  $lunch->day6 ;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner6=  $dinner->day6;
+        $day6 = [$breakfasts6, $lunch6, $dinner6];
+
+        $breakfasts = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $breakfasts7=  $breakfasts->day7;
+        $lunch = SevenDayPlan::where('category', '=', 'lunch' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $lunch7= $lunch->day7;
+        $dinner = SevenDayPlan::where('category', '=', 'dinner' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        $dinner7= $dinner->day7;
+        $day7 = [$breakfasts7, $lunch7, $dinner7];
+
+        $user1 = User::where('id', '=', session('LoggedUser')) -> first();
+        $user2 = Veriler::where('name', '=', session('LoggedUserName')) -> first();
+        $data = [
+            'day1' => $day1,
+            'day2' => $day2,
+            'day3' => $day3,
+            'day4' => $day4,
+            'day5' => $day5,
+            'day6' => $day6,
+            'day7' => $day7,
+            'LoggedUserInfo' => $user1,
+            'VerilerInfo' => $user2
+        ];
+
+        return view('admin.profile', $data);
+
     }
 
 }

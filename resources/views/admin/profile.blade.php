@@ -10,7 +10,7 @@
 <body>
   <div class="container">
         <div class="row" style="margin-top: 45px">
-            <div class="col-md-6">
+            <div class="row">
                 <h4>Profile</h4>
                 <div class="row">
                     {{ $LoggedUserInfo->name }}
@@ -21,30 +21,32 @@
                 <div class="row">
                     {{ $VerilerInfo->target_calorie }}
                 </div>
+            </div>
+            <div class="col-md-12">
 
-                <?php $whichday = App\Helpers\whichday::whichday(); ?>
+                <div></div>
+                <a href="logout">Logout</a>
+                <?php   ?>
 
-                <div class="results">
-                    @if(Session::get('success'))
-                    <div class="alert alert-success">
-                        {{Session::get('success')}}
-                    </div>
-                    @endif
-                    @if(Session::get('fail'))
-                    <div class="alert alert-danger">
-                        {{Session::get('fail')}}
-                    </div>
-                    @endif
+                <?php
+                $day_array = array($day1,$day2,$day3,$day4,$day5,$day6,$day7);
+                for ($i = 0; $i < 7; $i++) :
+                ?>
+                    <div class="row">
+                        <h3>Day {{$i+1}}</h3>
+                    <div class="col-md-4"><h5>Breakfast</h5>{{App\Helpers\bringFoodInfo::bringFoodInfo($day_array[$i][0])}}</div>
+                    <div class="col-md-4"><h5>Lunch</h5>{{App\Helpers\bringFoodInfo::bringFoodInfo($day_array[$i][1])}}</div>
+                    <div class="col-md-4"><h5>Dinner</h5>{{App\Helpers\bringFoodInfo::bringFoodInfo($day_array[$i][2])}}</div>
                 </div>
 
+
+                <?php endfor; ?>
                 {{-- <div class="row">
                     <button class="btn  btn-dark" type="button"  onclick="window.location.href='foodform'">Next</button>
                 </div> --}}
-                <a href="logout">Logout</a>
             </div>
         </div>
     </div>
 </body>
 </html>
-
 

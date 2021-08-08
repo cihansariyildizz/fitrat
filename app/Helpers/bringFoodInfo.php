@@ -4,53 +4,41 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 use App\Models\SevenDayPlan;
+use GuzzleHttp\Client as GuzzleHttpClient;
 
-class whichday
+class bringFoodInfo
 {
 
-    public static function whichday()
+    public static function bringFoodInfo($foodId)
     {
 
+        $api = 'b1a2074e56b54ccf99262f978245803f';
+        $requestContent = [
+            'headers' => [
+                'content-Type' => 'application/json',
+            ],
+        ];
 
-                    $todayinnumber = date("d");
-                    $dayplanbreakfast = SevenDayPlan::where('category', '=', 'breakfast' ) ->where('name', '=', session('LoggedUserName') )-> first();
+        try {
+            $client = new GuzzleHttpClient();
+            //will bring 7 day plan for user according to his target calorie
+            $apiRequest = $client->request('GET','https://api.spoonacular.com/recipes/'.$foodId.'/summary?apiKey='.$api);
+            $response = json_decode($apiRequest->getBody());
 
-                    $dateupdated = $dayplanbreakfast->updated_at;
-                    $pieces = explode(" ", $dateupdated);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            echo ($e);
+        }
+        //html of the card
 
-                    $dayupdated_ = explode("-", $pieces[0]);
-                    $dayupdated_ =  intval($dayupdated_[2]);//as a day
-
-
-
-                    if($dayupdated_ != 31 ){
-                      if($todayinnumber < $dayupdated_ ){
-                            $todayinnumber  = $todayinnumber + 30;
-                            $day_difference = $todayinnumber - $dayupdated_;
-
-                            if($day_difference <= 6 ){
-                                $todayday = $day_difference+1;
-                                return $todayday;
-                            }
-                            if($day_difference > 6 ){
-                                return "update_needed";
-                            }
-
-                            // $mod =  $todayinnumber %
-                        }
-
-                        if($todayinnumber >= $dayupdated_ ){
-                            $day_difference = $todayinnumber - $dayupdated_;
-
-                            if($day_difference <= 6 ){
-                                $todayday = $day_difference+1;
-                                return $todayday;
-                            }
-                           if($day_difference > 6 ) {
-                                return "update_needed";
-                            }
-
-                        }
-                    }
+        echo ( '
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top mobile" src="https://spoonacular.com/recipeImages/'.$foodId.'-312x231.jpg" alt="Card image cap">
+            <img class="card-img-top desktop" src="https://spoonacular.com/recipeImages/'.$foodId.'-636x393.jpg" alt="Card image cap">
+            <div class="card-body">
+            <h4 class="cardTittle">'. $response->title.'</h4>
+            <a href="#" class="btn btn-primary">See Recipe</a>
+            </div>
+        </div>
+        ');
     }
 }
