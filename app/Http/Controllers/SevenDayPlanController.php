@@ -215,7 +215,8 @@ class SevenDayPlanController extends Controller
             'VerilerInfo' => $user2
         ];
 
-        return view('admin.profile', $data);
+        return view('user.profile', $data);
+
 
     }
 

@@ -20,6 +20,7 @@ class CreateFoodTable extends Migration
             $table->text('name');//Food Name
             $table->text('description');//Ingredients and how to make it
             $table->integer('calorie');
+            $table->integer('price');
             $table->text('creator');
             $table->timestamps();
         });

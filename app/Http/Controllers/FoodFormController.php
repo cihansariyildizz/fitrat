@@ -13,7 +13,7 @@ class FoodFormController extends UserAuthController
         return view('pages.foodform');
     }
 
-    function create(Request $request){
+    function addproduct(Request $request){
 
         if ( $request->session()->has('LoggedUser')){
 
@@ -24,18 +24,14 @@ class FoodFormController extends UserAuthController
                     'fileUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:204',
                     'name'  => 'required|unique:food,name',
                     'description' => 'required',
-                    'calorie' => 'required|numeric'
+                    'calorie' => 'required|numeric',
+                    'price' => 'required|numeric'
                 ]);
 
-
-                // Save the file locally in the storage/public/ folder under a new folder named /product
-
-            $image = $request->fileUpload;
-            $path = ImageResizeHelper::uploadPostImageWithSizes($image, 'image');
-
+                $request->fileUpload->store('image','public');
+                
 
                 if(session()-> has('LoggedUser')){
-                    // $user = User::where('id', '=', session('LoggedUser')) -> first();
                     $user = DB::table('users')
                         ->where('id', session('LoggedUser'))
                         ->first();
@@ -46,9 +42,10 @@ class FoodFormController extends UserAuthController
                 ->insert([
                     'category'=> $request->category,
                     'name'=> $request->name,
-                    'image'=> $path,
+                    'image'=> $request->fileUpload->hashName(),
                     'description'=> $request->description,
                     'calorie'=> $request->calorie,
+                    'price'=> $request->price,
                     'creator'=> $user->name,
                     "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
                     "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
@@ -67,13 +64,5 @@ class FoodFormController extends UserAuthController
         else{
            return redirect('login');
         }
-
-
-
-
-
     }
-
-
-
 }

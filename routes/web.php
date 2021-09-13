@@ -32,13 +32,13 @@ Route::group(['middleware' => ['AlreadyLoggedIn']], function () {
 
 
 
-
+Route::get('admin', [UserAuthController::class, 'admin']);
 Route::get('profile', [SevenDayPlanController::class, 'show']);
 
 
-
+Route::post('addpro', [FoodFormController::class, 'addproduct'])->name('auth.add_product');
 Route::post('create', [UserAuthController::class, 'create'])->name('auth.create');
-Route::post('createfood', [FoodFormController::class, 'create'])->name('auth.create_food');
+// Route::post('createfood', [FoodFormController::class, 'create'])->name('auth.create_food');
 Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
 
 Route::post('createveri', [VerilerFormController::class, 'create'])->name('auth.create_veri');

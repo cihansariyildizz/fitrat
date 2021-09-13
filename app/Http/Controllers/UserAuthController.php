@@ -18,7 +18,11 @@ class UserAuthController extends Controller
     function register() {
         return view('auth.register');
     }
-
+    function admin() {
+        $products = DB::table('food')->get(); 
+        return view('admin.dist.admin',[ 'products' => $products]);
+    }
+  
 
     function create(Request $request){
         $request->validate([
@@ -27,34 +31,14 @@ class UserAuthController extends Controller
             'password' => 'required|min:6|max:15'
         ]);
 
-        // $base_api = 'b1a2074e56b54ccf99262f978245803f';
-        // $requestContent = [
-        //     'headers' => [
-        //         'content-Type' => 'application/json',
-        //     ],
-        //     'json' => [
-        //         'name' => request()->name,
-        //     ]
-        // ];
-
-        // try {
-        //     $client = new GuzzleHttpClient();
-        //     $apiRequest = $client->request('POST', 'https://api.spoonacular.com/users/connect?apiKey='.$base_api, $requestContent);
-        //     $response = json_decode($apiRequest->getBody());
-        //     $username_ = $response->username;
-        //     $hashname_ = $response->hash;
-
-        // } catch (\GuzzleHttp\Exception\RequestException $e) {
-        //     echo ($e);
-        // }
 
 
-        //USE QUERYBUILDER
         $query = DB::table('users')
         ->insert([
             'name'=> $request->name,
             'email'=> $request->email,
             'password'=>Hash::make( $request->password),
+            'role'=>'user',
             // 'apiName'=>$username_,
             // 'apiHash'=>$hashname_,
             "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
@@ -82,7 +66,9 @@ class UserAuthController extends Controller
                 $request-> session() -> put('LoggedUserName', $user->name);
                 $user_name = User::where('id', '=', session('LoggedUser')) -> first();
                 $userdata = Veriler::where('name', '=', $user_name->name)->first();
-
+                if($user->role == 'admin'){
+                    return redirect('admin');
+                }
                 if($userdata != null){
                     return redirect('profile');
                 }
